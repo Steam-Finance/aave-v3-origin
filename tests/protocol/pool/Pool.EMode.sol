@@ -251,7 +251,7 @@ contract PoolEModeTests is TestnetProcedures {
     uint256 borrowAmount = (totalCollateralBase * 1e8) / debtPrice;
     _borrowArbitraryAmount(tokenList.wbtc, alice, borrowAmount);
 
-    address liquidator = address(0x0f0f0f);
+    address liquidator = liquidatorProxy;
     _mintTestnetToken(tokenList.wbtc, liquidator, borrowAmount);
     vm.startPrank(liquidator);
     IERC20(tokenList.wbtc).approve(address(contracts.poolProxy), borrowAmount);

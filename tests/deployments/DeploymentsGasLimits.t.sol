@@ -66,7 +66,8 @@ contract DeploymentsGasLimits is BatchTestProcedures {
       address(0),
       address(0),
       address(0),
-      0
+      0,
+      makeAddr('liquidatorProxy')
     );
     flags = DeployFlags(true);
 

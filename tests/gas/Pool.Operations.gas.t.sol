@@ -17,7 +17,6 @@ import {Testhelpers, IERC20} from './Testhelpers.sol';
 contract PoolOperations_gas_Tests is Testhelpers {
   address supplier = makeAddr('supplier');
   address borrower = makeAddr('borrower');
-  address liquidator = makeAddr('liquidator');
 
   function test_supply() external {
     // borrow some, so hf checks are not skipped

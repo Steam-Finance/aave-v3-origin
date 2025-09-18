@@ -26,6 +26,7 @@ contract AaveV3SetupProcedure {
     address rewardsControllerProxy;
     address rewardsControllerImplementation;
     address priceOracleSentinel;
+    address liquidatorProxy;
   }
 
   function _initialDeployment(
@@ -71,7 +72,8 @@ contract AaveV3SetupProcedure {
         aaveOracle,
         config.incentivesProxy,
         rewardsControllerImplementation,
-        priceOracleSentinel
+        priceOracleSentinel,
+        config.liquidatorProxy
       )
     );
 
@@ -118,6 +120,7 @@ contract AaveV3SetupProcedure {
     provider.setPriceOracle(input.aaveOracle);
     provider.setPoolImpl(input.poolImplementation);
     provider.setPoolConfiguratorImpl(input.poolConfiguratorImplementation);
+    provider.setLiquidatorProxy(input.liquidatorProxy);
 
     report.poolProxy = address(provider.getPool());
     report.poolConfiguratorProxy = address(provider.getPoolConfigurator());

@@ -55,6 +55,7 @@ contract TestnetProcedures is Test, DeployUtils, FfiUtils, DefaultMarketInput {
   using ReserveConfiguration for DataTypes.ReserveConfigurationMap;
 
   address internal poolAdmin;
+  address internal liquidatorProxy;
 
   address internal alice;
   address internal bob;
@@ -90,6 +91,7 @@ contract TestnetProcedures is Test, DeployUtils, FfiUtils, DefaultMarketInput {
 
   function _initTestEnvironment(bool mintUserTokens, bool l2) internal {
     poolAdmin = makeAddr('POOL_ADMIN');
+    liquidatorProxy = makeAddr('LIQUIDATOR_PROXY');
 
     alicePrivateKey = 0xA11CE;
     bobPrivateKey = 0xB0B;
@@ -109,6 +111,7 @@ contract TestnetProcedures is Test, DeployUtils, FfiUtils, DefaultMarketInput {
       DeployFlags memory flags,
       MarketReport memory deployedContracts
     ) = _getMarketInput(poolAdmin);
+    config.liquidatorProxy = liquidatorProxy;
     roleList = roles;
     flags.l2 = l2;
 
@@ -140,10 +143,11 @@ contract TestnetProcedures is Test, DeployUtils, FfiUtils, DefaultMarketInput {
       // Perform setup of user positions
       uint256 mintAmount_USDX = 100_000e6;
       uint256 mintAmount_WBTC = 100e8;
-      address[] memory users = new address[](3);
+      address[] memory users = new address[](4);
       users[0] = alice;
       users[1] = bob;
       users[2] = carol;
+      users[3] = liquidatorProxy;
 
       for (uint256 x; x < users.length; x++) {
         vm.startPrank(poolAdmin);

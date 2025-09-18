@@ -10,9 +10,11 @@ import {AggregatorInterface} from '../../src/contracts/dependencies/chainlink/Ag
 
 contract Testhelpers is TestnetProcedures {
   address rando = makeAddr('randomUser');
+  address liquidator;
 
   function setUp() public virtual {
     initTestEnvironment(false);
+    liquidator = liquidatorProxy;
 
     // supply and borrow some on reserve with a random user as "some" interest accrual
     // is the realistic use case we want to check in gas snapshots

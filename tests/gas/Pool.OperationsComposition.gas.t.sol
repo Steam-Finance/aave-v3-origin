@@ -16,7 +16,6 @@ import {Testhelpers, IERC20} from './Testhelpers.sol';
 contract PoolOperationsComposition_gas_Tests is Testhelpers {
   address supplier = makeAddr('supplier');
   address borrower = makeAddr('borrower');
-  address liquidator = makeAddr('liquidator');
 
   function test_supplyAndBorrow() external {
     vm.startPrank(supplier);

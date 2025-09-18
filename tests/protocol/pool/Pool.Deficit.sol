@@ -252,10 +252,12 @@ contract PoolDeficitTests is TestnetProcedures {
 
     _borrowArbitraryAmount(borrowAsset, alice, borrowAmount);
 
-    deal(borrowAsset, bob, borrowAmount);
-    vm.prank(bob);
+    deal(borrowAsset, liquidatorProxy, borrowAmount);
+
+    vm.prank(liquidatorProxy);
     IERC20(borrowAsset).approve(address(contracts.poolProxy), borrowAmount);
-    vm.prank(bob);
+
+    vm.prank(liquidatorProxy);
     contracts.poolProxy.liquidationCall(tokenList.wbtc, borrowAsset, alice, borrowAmount, false);
 
     uint256 currentDeficit = contracts.poolProxy.getReserveDeficit(borrowAsset);

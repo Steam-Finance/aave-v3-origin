@@ -113,9 +113,9 @@ contract PoolLiquidationTests is TestnetProcedures {
     uint256 liquidatorBalanceBefore;
     if (params.receiveAToken) {
       address atoken = contracts.poolProxy.getReserveAToken(params.collateralAsset);
-      liquidatorBalanceBefore = IERC20(atoken).balanceOf(bob);
+      liquidatorBalanceBefore = IERC20(atoken).balanceOf(liquidatorProxy);
     } else {
-      liquidatorBalanceBefore = IERC20(params.collateralAsset).balanceOf(bob);
+      liquidatorBalanceBefore = IERC20(params.collateralAsset).balanceOf(liquidatorProxy);
     }
 
     vm.expectEmit(address(contracts.poolProxy));
@@ -125,11 +125,11 @@ contract PoolLiquidationTests is TestnetProcedures {
       params.user,
       params.actualDebtToLiquidate,
       params.actualCollateralToLiquidate,
-      bob,
+      liquidatorProxy,
       params.receiveAToken
     );
     // Liquidate
-    vm.prank(bob);
+    vm.prank(liquidatorProxy);
     contracts.poolProxy.liquidationCall(
       params.collateralAsset,
       params.debtAsset,
@@ -170,9 +170,9 @@ contract PoolLiquidationTests is TestnetProcedures {
     uint256 liquidatorBalanceBefore;
     if (params.receiveAToken) {
       address atoken = contracts.poolProxy.getReserveAToken(params.collateralAsset);
-      liquidatorBalanceBefore = IERC20(atoken).balanceOf(bob);
+      liquidatorBalanceBefore = IERC20(atoken).balanceOf(liquidatorProxy);
     } else {
-      liquidatorBalanceBefore = IERC20(params.collateralAsset).balanceOf(bob);
+      liquidatorBalanceBefore = IERC20(params.collateralAsset).balanceOf(liquidatorProxy);
     }
 
     vm.expectEmit(address(contracts.poolProxy));
@@ -182,11 +182,11 @@ contract PoolLiquidationTests is TestnetProcedures {
       params.user,
       params.actualDebtToLiquidate,
       params.actualCollateralToLiquidate,
-      bob,
+      liquidatorProxy,
       params.receiveAToken
     );
     // Liquidate
-    vm.prank(bob);
+    vm.prank(liquidatorProxy);
     contracts.poolProxy.liquidationCall(
       params.collateralAsset,
       params.debtAsset,
@@ -195,7 +195,12 @@ contract PoolLiquidationTests is TestnetProcedures {
       params.receiveAToken
     );
 
-    _afterLiquidationChecksVariable(params, bob, liquidatorBalanceBefore, userDebtBefore);
+    _afterLiquidationChecksVariable(
+      params,
+      liquidatorProxy,
+      liquidatorBalanceBefore,
+      userDebtBefore
+    );
 
     _checkInterestRates(params.collateralAsset);
     _checkInterestRates(params.debtAsset);
@@ -227,9 +232,9 @@ contract PoolLiquidationTests is TestnetProcedures {
     uint256 liquidatorBalanceBefore;
     if (params.receiveAToken) {
       address atoken = contracts.poolProxy.getReserveAToken(params.collateralAsset);
-      liquidatorBalanceBefore = IERC20(atoken).balanceOf(bob);
+      liquidatorBalanceBefore = IERC20(atoken).balanceOf(liquidatorProxy);
     } else {
-      liquidatorBalanceBefore = IERC20(params.collateralAsset).balanceOf(bob);
+      liquidatorBalanceBefore = IERC20(params.collateralAsset).balanceOf(liquidatorProxy);
     }
 
     vm.expectEmit(address(contracts.poolProxy));
@@ -239,11 +244,11 @@ contract PoolLiquidationTests is TestnetProcedures {
       params.user,
       params.actualDebtToLiquidate,
       params.actualCollateralToLiquidate,
-      bob,
+      liquidatorProxy,
       params.receiveAToken
     );
     // Liquidate
-    vm.prank(bob);
+    vm.prank(liquidatorProxy);
     contracts.poolProxy.liquidationCall(
       params.collateralAsset,
       params.debtAsset,
@@ -251,7 +256,12 @@ contract PoolLiquidationTests is TestnetProcedures {
       params.liquidationAmountInput,
       params.receiveAToken
     );
-    _afterLiquidationChecksVariable(params, bob, liquidatorBalanceBefore, userDebtBefore);
+    _afterLiquidationChecksVariable(
+      params,
+      liquidatorProxy,
+      liquidatorBalanceBefore,
+      userDebtBefore
+    );
 
     _checkInterestRates(params.collateralAsset);
     _checkInterestRates(params.debtAsset);
@@ -280,9 +290,9 @@ contract PoolLiquidationTests is TestnetProcedures {
     uint256 liquidatorBalanceBefore;
     if (params.receiveAToken) {
       address atoken = contracts.poolProxy.getReserveAToken(params.collateralAsset);
-      liquidatorBalanceBefore = IERC20(atoken).balanceOf(bob);
+      liquidatorBalanceBefore = IERC20(atoken).balanceOf(liquidatorProxy);
     } else {
-      liquidatorBalanceBefore = IERC20(params.collateralAsset).balanceOf(bob);
+      liquidatorBalanceBefore = IERC20(params.collateralAsset).balanceOf(liquidatorProxy);
     }
 
     vm.expectEmit(address(contracts.poolProxy));
@@ -292,11 +302,11 @@ contract PoolLiquidationTests is TestnetProcedures {
       params.user,
       params.actualDebtToLiquidate,
       params.actualCollateralToLiquidate,
-      bob,
+      liquidatorProxy,
       params.receiveAToken
     );
     // Liquidate
-    vm.prank(bob);
+    vm.prank(liquidatorProxy);
     contracts.poolProxy.liquidationCall(
       params.collateralAsset,
       params.debtAsset,
@@ -305,7 +315,12 @@ contract PoolLiquidationTests is TestnetProcedures {
       params.receiveAToken
     );
 
-    _afterLiquidationChecksVariable(params, bob, liquidatorBalanceBefore, userDebtBefore);
+    _afterLiquidationChecksVariable(
+      params,
+      liquidatorProxy,
+      liquidatorBalanceBefore,
+      userDebtBefore
+    );
 
     _checkInterestRates(params.collateralAsset);
     _checkInterestRates(params.debtAsset);
@@ -335,9 +350,9 @@ contract PoolLiquidationTests is TestnetProcedures {
     uint256 liquidatorBalanceBefore;
     if (params.receiveAToken) {
       address atoken = contracts.poolProxy.getReserveAToken(params.collateralAsset);
-      liquidatorBalanceBefore = IERC20(atoken).balanceOf(bob);
+      liquidatorBalanceBefore = IERC20(atoken).balanceOf(liquidatorProxy);
     } else {
-      liquidatorBalanceBefore = IERC20(params.collateralAsset).balanceOf(bob);
+      liquidatorBalanceBefore = IERC20(params.collateralAsset).balanceOf(liquidatorProxy);
     }
 
     vm.expectEmit(address(contracts.poolProxy));
@@ -347,11 +362,11 @@ contract PoolLiquidationTests is TestnetProcedures {
       params.user,
       params.actualDebtToLiquidate,
       params.actualCollateralToLiquidate,
-      bob,
+      liquidatorProxy,
       params.receiveAToken
     );
     // Liquidate
-    vm.prank(bob);
+    vm.prank(liquidatorProxy);
     contracts.poolProxy.liquidationCall(
       params.collateralAsset,
       params.debtAsset,
@@ -360,7 +375,12 @@ contract PoolLiquidationTests is TestnetProcedures {
       params.receiveAToken
     );
 
-    _afterLiquidationChecksVariable(params, bob, liquidatorBalanceBefore, userDebtBefore);
+    _afterLiquidationChecksVariable(
+      params,
+      liquidatorProxy,
+      liquidatorBalanceBefore,
+      userDebtBefore
+    );
 
     _checkInterestRates(params.collateralAsset);
     _checkInterestRates(params.debtAsset);
@@ -389,9 +409,9 @@ contract PoolLiquidationTests is TestnetProcedures {
     uint256 liquidatorBalanceBefore;
     if (params.receiveAToken) {
       address atoken = contracts.poolProxy.getReserveAToken(params.collateralAsset);
-      liquidatorBalanceBefore = IERC20(atoken).balanceOf(bob);
+      liquidatorBalanceBefore = IERC20(atoken).balanceOf(liquidatorProxy);
     } else {
-      liquidatorBalanceBefore = IERC20(params.collateralAsset).balanceOf(bob);
+      liquidatorBalanceBefore = IERC20(params.collateralAsset).balanceOf(liquidatorProxy);
     }
 
     vm.expectEmit(address(contracts.poolProxy));
@@ -401,11 +421,11 @@ contract PoolLiquidationTests is TestnetProcedures {
       params.user,
       params.actualDebtToLiquidate,
       params.actualCollateralToLiquidate,
-      bob,
+      liquidatorProxy,
       params.receiveAToken
     );
     // Liquidate
-    vm.prank(bob);
+    vm.prank(liquidatorProxy);
     contracts.poolProxy.liquidationCall(
       params.collateralAsset,
       params.debtAsset,
@@ -429,7 +449,7 @@ contract PoolLiquidationTests is TestnetProcedures {
     AaveSetters.setVariableBorrowIndex(address(contracts.poolProxy), tokenList.usdx, 4.05e27);
 
     // Liquidate
-    vm.prank(bob);
+    vm.prank(liquidatorProxy);
     contracts.poolProxy.liquidationCall(
       tokenList.usdx,
       tokenList.usdx,
@@ -470,11 +490,11 @@ contract PoolLiquidationTests is TestnetProcedures {
       params.user,
       params.actualDebtToLiquidate,
       params.actualCollateralToLiquidate,
-      bob,
+      liquidatorProxy,
       params.receiveAToken
     );
     // Liquidate
-    vm.prank(bob);
+    vm.prank(liquidatorProxy);
     contracts.poolProxy.liquidationCall(
       params.collateralAsset,
       params.debtAsset,
@@ -485,7 +505,7 @@ contract PoolLiquidationTests is TestnetProcedures {
     address variableDebtToken = contracts.poolProxy.getReserveVariableDebtToken(params.debtAsset);
     address atokenAddress = contracts.poolProxy.getReserveAToken(params.collateralAsset);
 
-    assertEq(IERC20(atokenAddress).balanceOf(bob), params.actualCollateralToLiquidate);
+    assertEq(IERC20(atokenAddress).balanceOf(liquidatorProxy), params.actualCollateralToLiquidate);
     assertEq(IERC20(variableDebtToken).balanceOf(params.user), 0);
 
     _checkInterestRates(params.collateralAsset);
@@ -520,9 +540,9 @@ contract PoolLiquidationTests is TestnetProcedures {
     if (params.receiveAToken) {
       address atokenAddress = contracts.poolProxy.getReserveAToken(params.collateralAsset);
 
-      liquidatorBalanceBefore = IERC20(atokenAddress).balanceOf(bob);
+      liquidatorBalanceBefore = IERC20(atokenAddress).balanceOf(liquidatorProxy);
     } else {
-      liquidatorBalanceBefore = IERC20(params.collateralAsset).balanceOf(bob);
+      liquidatorBalanceBefore = IERC20(params.collateralAsset).balanceOf(liquidatorProxy);
     }
     uint256 variableDebtBefore = IERC20(varDebtToken).balanceOf(params.user);
 
@@ -530,7 +550,7 @@ contract PoolLiquidationTests is TestnetProcedures {
     emit IPool.ReserveUsedAsCollateralDisabled(params.collateralAsset, params.user);
 
     vm.expectEmit(address(contracts.poolProxy));
-    emit IPool.ReserveUsedAsCollateralEnabled(params.collateralAsset, bob);
+    emit IPool.ReserveUsedAsCollateralEnabled(params.collateralAsset, liquidatorProxy);
 
     vm.expectEmit(address(contracts.poolProxy));
     emit IPool.LiquidationCall(
@@ -539,11 +559,11 @@ contract PoolLiquidationTests is TestnetProcedures {
       params.user,
       params.actualDebtToLiquidate,
       params.actualCollateralToLiquidate,
-      bob,
+      liquidatorProxy,
       params.receiveAToken
     );
     // Liquidate
-    vm.prank(bob);
+    vm.prank(liquidatorProxy);
     contracts.poolProxy.liquidationCall(
       params.collateralAsset,
       params.debtAsset,
@@ -556,13 +576,13 @@ contract PoolLiquidationTests is TestnetProcedures {
 
     if (params.receiveAToken) {
       assertEq(
-        IERC20(atoken).balanceOf(bob),
+        IERC20(atoken).balanceOf(liquidatorProxy),
         liquidatorBalanceBefore + params.actualCollateralToLiquidate,
         'liquidator balance doesnt match'
       );
     } else {
       assertEq(
-        IERC20(params.collateralAsset).balanceOf(bob),
+        IERC20(params.collateralAsset).balanceOf(liquidatorProxy),
         liquidatorBalanceBefore + params.actualCollateralToLiquidate,
         'liquidator balance doesnt match'
       );
@@ -623,11 +643,11 @@ contract PoolLiquidationTests is TestnetProcedures {
       params.user,
       params.actualDebtToLiquidate,
       params.actualCollateralToLiquidate,
-      bob,
+      liquidatorProxy,
       params.receiveAToken
     );
     // Liquidate
-    vm.prank(bob);
+    vm.prank(liquidatorProxy);
     contracts.poolProxy.liquidationCall(
       params.collateralAsset,
       params.debtAsset,
@@ -636,7 +656,12 @@ contract PoolLiquidationTests is TestnetProcedures {
       params.receiveAToken
     );
 
-    _afterLiquidationChecksVariable(params, bob, liquidatorBalanceBefore, userDebtBefore);
+    _afterLiquidationChecksVariable(
+      params,
+      liquidatorProxy,
+      liquidatorBalanceBefore,
+      userDebtBefore
+    );
 
     _checkInterestRates(params.collateralAsset);
     _checkInterestRates(params.debtAsset);
@@ -645,14 +670,14 @@ contract PoolLiquidationTests is TestnetProcedures {
   function test_self_liquidate_position_shouldRevert() public {
     uint256 borrowAmount = 11000e6;
 
-    vm.startPrank(alice);
-    contracts.poolProxy.supply(tokenList.wbtc, 0.5e8, alice, 0);
+    vm.startPrank(liquidatorProxy);
+    contracts.poolProxy.supply(tokenList.wbtc, 0.5e8, liquidatorProxy, 0);
     contracts.poolProxy.setUserUseReserveAsCollateral(tokenList.wbtc, true);
-    contracts.poolProxy.borrow(tokenList.usdx, borrowAmount, 2, 0, alice);
+    contracts.poolProxy.borrow(tokenList.usdx, borrowAmount, 2, 0, liquidatorProxy);
     vm.stopPrank();
 
     LiquidationInput memory params = _loadLiquidationInput(
-      alice,
+      liquidatorProxy,
       tokenList.wbtc,
       tokenList.usdx,
       UINT256_MAX,
@@ -663,7 +688,7 @@ contract PoolLiquidationTests is TestnetProcedures {
 
     // Liquidate
     vm.expectRevert(abi.encodeWithSelector(Errors.SelfLiquidation.selector));
-    vm.prank(alice);
+    vm.prank(liquidatorProxy);
     contracts.poolProxy.liquidationCall(
       params.collateralAsset,
       params.debtAsset,
@@ -672,7 +697,10 @@ contract PoolLiquidationTests is TestnetProcedures {
       params.receiveAToken
     );
     uint256 id = contracts.poolProxy.getReserveData(params.collateralAsset).id;
-    assertEq(contracts.poolProxy.getUserConfiguration(alice).isUsingAsCollateral(id), true);
+    assertEq(
+      contracts.poolProxy.getUserConfiguration(liquidatorProxy).isUsingAsCollateral(id),
+      true
+    );
   }
 
   function test_liquidate_emode_position_without_emode_oracle() public {
@@ -711,9 +739,9 @@ contract PoolLiquidationTests is TestnetProcedures {
     if (params.receiveAToken) {
       address atoken = contracts.poolProxy.getReserveAToken(params.collateralAsset);
 
-      liquidatorBalanceBefore = IERC20(atoken).balanceOf(bob);
+      liquidatorBalanceBefore = IERC20(atoken).balanceOf(liquidatorProxy);
     } else {
-      liquidatorBalanceBefore = IERC20(params.collateralAsset).balanceOf(bob);
+      liquidatorBalanceBefore = IERC20(params.collateralAsset).balanceOf(liquidatorProxy);
     }
 
     vm.expectEmit(address(contracts.poolProxy));
@@ -723,12 +751,12 @@ contract PoolLiquidationTests is TestnetProcedures {
       params.user,
       params.actualDebtToLiquidate,
       params.actualCollateralToLiquidate,
-      bob,
+      liquidatorProxy,
       params.receiveAToken
     );
 
     // Liquidate
-    vm.prank(bob);
+    vm.prank(liquidatorProxy);
     contracts.poolProxy.liquidationCall(
       params.collateralAsset,
       params.debtAsset,
@@ -737,7 +765,12 @@ contract PoolLiquidationTests is TestnetProcedures {
       params.receiveAToken
     );
 
-    _afterLiquidationChecksVariable(params, bob, liquidatorBalanceBefore, userDebtBefore);
+    _afterLiquidationChecksVariable(
+      params,
+      liquidatorProxy,
+      liquidatorBalanceBefore,
+      userDebtBefore
+    );
 
     _checkInterestRates(params.collateralAsset);
     _checkInterestRates(params.debtAsset);
@@ -768,9 +801,9 @@ contract PoolLiquidationTests is TestnetProcedures {
     if (params.receiveAToken) {
       address atoken = contracts.poolProxy.getReserveAToken(params.collateralAsset);
 
-      liquidatorBalanceBefore = IERC20(atoken).balanceOf(bob);
+      liquidatorBalanceBefore = IERC20(atoken).balanceOf(liquidatorProxy);
     } else {
-      liquidatorBalanceBefore = IERC20(params.collateralAsset).balanceOf(bob);
+      liquidatorBalanceBefore = IERC20(params.collateralAsset).balanceOf(liquidatorProxy);
     }
 
     vm.expectEmit(address(contracts.poolProxy));
@@ -779,7 +812,7 @@ contract PoolLiquidationTests is TestnetProcedures {
       tokenList.usdx,
       userDebtBefore - params.actualDebtToLiquidate
     );
-    vm.prank(bob);
+    vm.prank(liquidatorProxy);
     contracts.poolProxy.liquidationCall(
       params.collateralAsset,
       params.debtAsset,
@@ -787,7 +820,12 @@ contract PoolLiquidationTests is TestnetProcedures {
       params.liquidationAmountInput,
       params.receiveAToken
     );
-    _afterLiquidationChecksVariable(params, bob, liquidatorBalanceBefore, userDebtBefore);
+    _afterLiquidationChecksVariable(
+      params,
+      liquidatorProxy,
+      liquidatorBalanceBefore,
+      userDebtBefore
+    );
 
     _checkInterestRates(params.collateralAsset);
     _checkInterestRates(params.debtAsset);
@@ -825,9 +863,9 @@ contract PoolLiquidationTests is TestnetProcedures {
     if (params.receiveAToken) {
       address atoken = contracts.poolProxy.getReserveAToken(params.collateralAsset);
 
-      liquidatorBalanceBefore = IERC20(atoken).balanceOf(bob);
+      liquidatorBalanceBefore = IERC20(atoken).balanceOf(liquidatorProxy);
     } else {
-      liquidatorBalanceBefore = IERC20(params.collateralAsset).balanceOf(bob);
+      liquidatorBalanceBefore = IERC20(params.collateralAsset).balanceOf(liquidatorProxy);
     }
 
     vm.expectEmit(address(contracts.poolProxy));
@@ -836,7 +874,7 @@ contract PoolLiquidationTests is TestnetProcedures {
       tokenList.usdx,
       userDebtBefore - params.actualDebtToLiquidate
     );
-    vm.prank(bob);
+    vm.prank(liquidatorProxy);
     contracts.poolProxy.liquidationCall(
       params.collateralAsset,
       params.debtAsset,
@@ -844,7 +882,12 @@ contract PoolLiquidationTests is TestnetProcedures {
       params.liquidationAmountInput,
       params.receiveAToken
     );
-    _afterLiquidationChecksVariable(params, bob, liquidatorBalanceBefore, userDebtBefore);
+    _afterLiquidationChecksVariable(
+      params,
+      liquidatorProxy,
+      liquidatorBalanceBefore,
+      userDebtBefore
+    );
     // check second borrow
     varDebtToken = contracts.poolProxy.getReserveVariableDebtToken(tokenList.wbtc);
     assertEq(IERC20(varDebtToken).balanceOf(params.user), 0, 'user balance doesnt match');
@@ -878,9 +921,9 @@ contract PoolLiquidationTests is TestnetProcedures {
     if (params.receiveAToken) {
       address atoken = contracts.poolProxy.getReserveAToken(params.collateralAsset);
 
-      liquidatorBalanceBefore = IERC20(atoken).balanceOf(bob);
+      liquidatorBalanceBefore = IERC20(atoken).balanceOf(liquidatorProxy);
     } else {
-      liquidatorBalanceBefore = IERC20(params.collateralAsset).balanceOf(bob);
+      liquidatorBalanceBefore = IERC20(params.collateralAsset).balanceOf(liquidatorProxy);
     }
 
     vm.expectEmit(address(contracts.poolProxy));
@@ -889,7 +932,7 @@ contract PoolLiquidationTests is TestnetProcedures {
       tokenList.usdx,
       userDebtBefore - params.actualDebtToLiquidate
     );
-    vm.prank(bob);
+    vm.prank(liquidatorProxy);
     contracts.poolProxy.liquidationCall(
       params.collateralAsset,
       params.debtAsset,
@@ -972,7 +1015,7 @@ contract PoolLiquidationTests is TestnetProcedures {
     assertEq(priceOracleSentinel.isLiquidationAllowed(), false);
     vm.expectRevert(abi.encodeWithSelector(Errors.PriceOracleSentinelCheckFailed.selector));
 
-    vm.prank(alice);
+    vm.prank(liquidatorProxy);
     contracts.poolProxy.liquidationCall(tokenList.usdx, tokenList.wbtc, bob, 100e6, false);
   }
 
@@ -982,7 +1025,7 @@ contract PoolLiquidationTests is TestnetProcedures {
 
     vm.expectRevert(abi.encodeWithSelector(Errors.ReserveInactive.selector));
 
-    vm.prank(alice);
+    vm.prank(liquidatorProxy);
     contracts.poolProxy.liquidationCall(tokenList.usdx, tokenList.wbtc, bob, 100e6, false);
   }
 
@@ -994,7 +1037,7 @@ contract PoolLiquidationTests is TestnetProcedures {
 
     vm.expectRevert(abi.encodeWithSelector(Errors.HealthFactorNotBelowThreshold.selector));
 
-    vm.prank(bob);
+    vm.prank(liquidatorProxy);
     contracts.poolProxy.liquidationCall(tokenList.wbtc, tokenList.weth, alice, 100e6, false);
   }
 
@@ -1016,7 +1059,7 @@ contract PoolLiquidationTests is TestnetProcedures {
 
     vm.expectRevert(abi.encodeWithSelector(Errors.CollateralCannotBeLiquidated.selector));
 
-    vm.prank(bob);
+    vm.prank(liquidatorProxy);
     contracts.poolProxy.liquidationCall(tokenList.usdx, tokenList.weth, alice, 100e6, false);
   }
 
@@ -1035,7 +1078,7 @@ contract PoolLiquidationTests is TestnetProcedures {
 
     vm.expectRevert(abi.encodeWithSelector(Errors.SpecifiedCurrencyNotBorrowedByUser.selector));
 
-    vm.prank(bob);
+    vm.prank(liquidatorProxy);
     contracts.poolProxy.liquidationCall(tokenList.wbtc, tokenList.usdx, alice, 100e6, false);
   }
 
@@ -1045,7 +1088,7 @@ contract PoolLiquidationTests is TestnetProcedures {
 
     vm.expectRevert(abi.encodeWithSelector(Errors.ReservePaused.selector));
 
-    vm.prank(alice);
+    vm.prank(liquidatorProxy);
     contracts.poolProxy.liquidationCall(tokenList.usdx, tokenList.wbtc, bob, 100e6, false);
   }
 
@@ -1072,7 +1115,7 @@ contract PoolLiquidationTests is TestnetProcedures {
       25_00
     );
 
-    vm.startPrank(bob);
+    vm.startPrank(liquidatorProxy);
     // check that liquidations are not allowed after grace period activation
     vm.expectRevert(abi.encodeWithSelector(Errors.LiquidationGraceSentinelCheckFailed.selector));
     contracts.poolProxy.liquidationCall(
@@ -1088,7 +1131,7 @@ contract PoolLiquidationTests is TestnetProcedures {
     contracts.poolConfiguratorProxy.disableLiquidationGracePeriod(assetsInGrace[0]);
     vm.stopPrank();
 
-    vm.startPrank(bob);
+    vm.startPrank(liquidatorProxy);
     // check that liquidations are allowed after grace period disabled
     contracts.poolProxy.liquidationCall(
       params.collateralAsset,
@@ -1152,7 +1195,7 @@ contract PoolLiquidationTests is TestnetProcedures {
       25_00
     );
 
-    vm.startPrank(bob);
+    vm.startPrank(liquidatorProxy);
     // check that liquidations are allowed before grace period activation
     contracts.poolProxy.liquidationCall(
       params.collateralAsset,
@@ -1165,7 +1208,7 @@ contract PoolLiquidationTests is TestnetProcedures {
 
     _setLiquidationGracePeriod(assetsInGrace, liquidationGracePeriod);
 
-    vm.startPrank(bob);
+    vm.startPrank(liquidatorProxy);
 
     uint40 timestampSnapshot = uint40(vm.getBlockTimestamp());
     if (liquidationGracePeriod != 0) {
