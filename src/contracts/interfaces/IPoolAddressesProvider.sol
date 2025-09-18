@@ -224,4 +224,16 @@ interface IPoolAddressesProvider {
    * @param newDataProvider The address of the new DataProvider
    */
   function setPoolDataProvider(address newDataProvider) external;
+
+  /**
+   * @notice Returns the address of the liquidator proxy contract.
+   * @return The address of the liquidator proxy contract
+   */
+  function getLiquidatorProxy() external view returns (address);
+
+  /**
+   * @notice Updates the address of the liquidator proxy contract.
+   * @param newLiquidatorProxy The address of the new liquidator proxy contract
+   */
+  function setLiquidatorProxy(address newLiquidatorProxy) external;
 }
