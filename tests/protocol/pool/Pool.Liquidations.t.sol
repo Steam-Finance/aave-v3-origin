@@ -90,6 +90,36 @@ contract PoolLiquidationTests is TestnetProcedures {
     uint256 healthFactor;
   }
 
+  function test_liquidate_revert_if_not_liquidator_proxy() public {
+    uint256 amount = 1e8;
+    uint256 borrowAmount = 20500e6;
+    vm.startPrank(alice);
+
+    contracts.poolProxy.supply(tokenList.wbtc, amount, alice, 0);
+    contracts.poolProxy.borrow(tokenList.usdx, borrowAmount, 2, 0, alice);
+    vm.stopPrank();
+
+    LiquidationInput memory params = _loadLiquidationInput(
+      alice,
+      tokenList.wbtc,
+      tokenList.usdx,
+      UINT256_MAX,
+      tokenList.wbtc,
+      16_00
+    );
+
+    // Liquidate
+    vm.expectRevert(abi.encodeWithSelector(Errors.CallerNotLiquidatorProxy.selector));
+    vm.prank(bob);
+    contracts.poolProxy.liquidationCall(
+      params.collateralAsset,
+      params.debtAsset,
+      params.user,
+      type(uint256).max,
+      params.receiveAToken
+    );
+  }
+
   function test_liquidate_variable_borrow_same_collateral_and_borrow() public {
     uint256 amount = 2000e6;
     uint256 borrowAmount = 1620e6;

@@ -165,7 +165,7 @@ contract PoolAddressesProvider is Ownable, IPoolAddressesProvider {
   function setLiquidatorProxy(address newLiquidatorProxy) external override onlyOwner {
     address oldLiquidatorProxy = _addresses[LIQUIDATOR_PROXY];
     _addresses[LIQUIDATOR_PROXY] = newLiquidatorProxy;
-    emit PoolDataProviderUpdated(oldLiquidatorProxy, newLiquidatorProxy);
+    emit LiquidatorProxyUpdated(oldLiquidatorProxy, newLiquidatorProxy);
   }
 
   /**
