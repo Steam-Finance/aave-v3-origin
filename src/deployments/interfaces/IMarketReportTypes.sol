@@ -121,6 +121,7 @@ struct MarketConfig {
   address treasuryPartner; // let empty for single treasury, or add treasury partner for revenue split between two organizations.
   uint16 treasurySplitPercent; // ignored if treasuryPartner is empty, otherwise the split percent for the first treasury (recipientA, values between 00_01 and 100_00)
   address liquidatorProxy;
+  address baseCurrency;
 }
 
 struct DeployFlags {

@@ -21,17 +21,15 @@ contract IncentivMarketInput is MarketInput {
     roles.poolAdmin = deployer;
     roles.emergencyAdmin = deployer;
 
-    // config.networkBaseTokenPriceInUsdProxyAggregator = 0xeC7C6AdcC867E1C22713D14797339750E36538E4;
-    // config
-    //   .marketReferenceCurrencyPriceInUsdProxyAggregator = 0xeC7C6AdcC867E1C22713D14797339750E36538E4;
-    config.networkBaseTokenPriceInUsdProxyAggregator = 0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419;
+    config.networkBaseTokenPriceInUsdProxyAggregator = 0xeC7C6AdcC867E1C22713D14797339750E36538E4;
     config
-      .marketReferenceCurrencyPriceInUsdProxyAggregator = 0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419;
+      .marketReferenceCurrencyPriceInUsdProxyAggregator = 0xeC7C6AdcC867E1C22713D14797339750E36538E4;
     config.marketId = 'Aave V3 Incentiv Testnet Market';
     config.oracleDecimals = 8;
     config.providerId = 1;
-    config.flashLoanPremium = 0.0005e4;
+    config.flashLoanPremium = 10; // 0.1%
     config.treasury = deployer;
+    config.baseCurrency = 0x59af20A40E7f9341d164b723A30685AE6d5c6fBb; // iUSD
 
     return (roles, config, flags, deployedContracts);
   }

@@ -8,20 +8,20 @@ import {IACLManager} from '../src/contracts/interfaces/IACLManager.sol';
 
 contract InitiateIncentivReservesScript is Script {
   function run() external {
-    address configEngine = 0x4825066dBdFbab33bdACe4Ee213afba2A9E9AB01;
-    IACLManager aclManager = IACLManager(0x64a2C764eB35c248E38A111d7023a0201D857DE8);
+    address configEngine = 0x61C4f2a0e563FEe60EE9D287601eB5382794631F;
+    IACLManager aclManager = IACLManager(0xDe915b30D07705D38A4CDC4C3326421d3eD1E504);
 
     IEngine.Listing[] memory listings = new IEngine.Listing[](3);
     IEngine.PoolContext memory context = IEngine.PoolContext({
-      networkName: 'Incentiv',
-      networkAbbreviation: 'Incv'
+      networkName: 'Incentiv Testnet',
+      networkAbbreviation: 'IncvT'
     });
 
     // iETHt
     listings[0] = IEngine.Listing({
-      asset: 0x05a98f1F2c69da3E04D023eBeD71E534DfA018E9,
+      asset: 0xe1ee70321F835753635d5a419e01A4C20d1D066D, // default price feed
       assetSymbol: 'iETHt',
-      priceFeed: 0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419,
+      priceFeed: 0xeC7C6AdcC867E1C22713D14797339750E36538E4,
       rateStrategyParams: IEngine.InterestRateInputData({
         optimalUsageRatio: 70_00,
         baseVariableBorrowRate: 1_00,
@@ -44,9 +44,9 @@ contract InitiateIncentivReservesScript is Script {
 
     // iBTCt
     listings[1] = IEngine.Listing({
-      asset: 0xd47a86a2980cB709fB74d1bf5AFD7e415924b9d2,
+      asset: 0xa19328F2c3A6D75E7ABce5F919a1cEF8Dc4E6173,
       assetSymbol: 'iBTCt',
-      priceFeed: 0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c,
+      priceFeed: 0x98DC6E90D4c2f212ed9d124aD2aFBa4833268633,
       rateStrategyParams: IEngine.InterestRateInputData({
         optimalUsageRatio: 55_00,
         baseVariableBorrowRate: 1_00,
@@ -69,9 +69,9 @@ contract InitiateIncentivReservesScript is Script {
 
     // iUSDt
     listings[2] = IEngine.Listing({
-      asset: 0xE1b1dc71A92C67a51FEbaB13864b3018D86Cd204,
+      asset: 0x59af20A40E7f9341d164b723A30685AE6d5c6fBb,
       assetSymbol: 'iUSDt',
-      priceFeed: 0x8fFfFfd4AfB6115b954Bd326cbe7B4BA576818f6,
+      priceFeed: 0xeC7C6AdcC867E1C22713D14797339750E36538E4, // default price feed (iETH)
       rateStrategyParams: IEngine.InterestRateInputData({
         optimalUsageRatio: 80_00,
         baseVariableBorrowRate: 2_00,

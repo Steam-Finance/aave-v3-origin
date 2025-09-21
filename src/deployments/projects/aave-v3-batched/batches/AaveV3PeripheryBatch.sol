@@ -23,7 +23,11 @@ contract AaveV3PeripheryBatch is
     address poolAddressesProvider,
     address setupBatch
   ) {
-    _report.aaveOracle = _deployAaveOracle(config.oracleDecimals, poolAddressesProvider);
+    _report.aaveOracle = _deployAaveOracle(
+      config.oracleDecimals,
+      poolAddressesProvider,
+      config.baseCurrency
+    );
 
     if (config.treasury == address(0)) {
       TreasuryReport memory treasuryReport = _deployAaveV3Treasury(poolAdmin, config.salt);
