@@ -29,7 +29,7 @@ contract IncentivMarketInput is MarketInput {
     config.providerId = 1;
     config.flashLoanPremium = 10; // 0.1%
     config.treasury = deployer;
-    config.baseCurrency = 0x59af20A40E7f9341d164b723A30685AE6d5c6fBb; // iUSD
+    config.baseCurrency = 0x9d9D7C8A6523c969c9D1A508764C280F8939813E; // iUSD
 
     return (roles, config, flags, deployedContracts);
   }

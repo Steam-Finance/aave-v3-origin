@@ -6,8 +6,8 @@ import {IPoolAddressesProvider} from '../src/contracts/interfaces/IPoolAddresses
 
 contract SetLiquidatorProxyScript is Script {
   function run() external {
-    address poolAddressesProviderAddress = 0x9F68933A787aBAE0C098f8ae36374087378a9E32;
-    address liquidatorProxy = 0xEbE0e7E409deAf1Da78e08F77012e6408863979f;
+    address poolAddressesProviderAddress = 0xf8BC30F8Cde014Dd78688075e754b31FDECd67CE;
+    address liquidatorProxy = 0x746fe6E87e221a4aDFc73d1cF0B43386245429D8;
 
     vm.startBroadcast();
     IPoolAddressesProvider(poolAddressesProviderAddress).setLiquidatorProxy(liquidatorProxy);
