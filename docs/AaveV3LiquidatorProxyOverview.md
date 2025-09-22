@@ -65,5 +65,14 @@ This proxy validates liquidators against a **Merkle tree-based whitelist** and f
 - **Flexibility:** Governance can update the proxy address if needed.
 - **Security:** The proxy ensures only approved liquidators (via Merkle proofs) can execute liquidations, reducing risks of malicious actors.
 
-**Summary:**
+## Testing
+
+Additional tests were introduced to validate this new liquidation restriction:
+
+- In `PoolAddressesProvider.t.sol`, tests confirm that governance can correctly configure and update the Liquidator Proxy address, and that the system reflects these changes as expected.
+
+- In `Pool.Liquidations.t.sol`, tests ensure that only the designated proxy is permitted to perform liquidations, and that attempts by unauthorized addresses are properly rejected.
+
+## Summary
+
 Liquidations are now restricted to whitelisted liquidators operating through a proxy contract, providing stronger governance controls and enhanced oversight of liquidation activity within the Aave V3 Pool contract.
