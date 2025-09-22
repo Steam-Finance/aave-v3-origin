@@ -225,7 +225,7 @@ contract L2PoolTests is PoolTests {
     );
 
     // Liquidate
-    vm.prank(bob);
+    vm.prank(liquidatorProxy);
     l2Pool.liquidationCall(encodedInput1, encodedInput2);
   }
 }

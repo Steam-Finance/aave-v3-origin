@@ -54,7 +54,9 @@ contract AaveV3BatchDeployment is BatchTestProcedures {
       address(0),
       address(0),
       address(0),
-      0
+      0,
+      makeAddr('liquidatorProxy'),
+      address(0)
     );
   }
 

@@ -107,6 +107,9 @@ contract PoolAddressesProviderTests is TestnetProcedures {
 
     vm.expectRevert(bytes(CALLER_NOT_OWNER));
     provider.setPoolDataProvider(contractAddress);
+
+    vm.expectRevert(bytes(CALLER_NOT_OWNER));
+    provider.setLiquidatorProxy(contractAddress);
   }
 
   function test_setAddressAsProxy_new_proxy() public returns (PoolAddressesProvider, address) {
@@ -470,5 +473,45 @@ contract PoolAddressesProviderTests is TestnetProcedures {
     assertEq(provider.getPoolDataProvider(), contractAddress);
 
     return (provider, contractAddress);
+  }
+
+  function test_setLiquidatorProxy() public {
+    PoolAddressesProvider provider = new PoolAddressesProvider('test', alice);
+
+    address newProxy = makeAddr('LIQUIDATOR_PROXY');
+
+    // expect the event with old=0x0, new=newProxy
+    vm.expectEmit(address(provider));
+    emit IPoolAddressesProvider.LiquidatorProxyUpdated(address(0), newProxy);
+
+    vm.prank(alice);
+    provider.setLiquidatorProxy(newProxy);
+
+    assertEq(provider.getLiquidatorProxy(), newProxy);
+  }
+
+  function test_setLiquidatorProxy_update() public {
+    PoolAddressesProvider provider = new PoolAddressesProvider('test', alice);
+
+    address firstProxy = makeAddr('FIRST_PROXY');
+    address secondProxy = makeAddr('SECOND_PROXY');
+
+    // set first proxy
+    vm.expectEmit(address(provider));
+    emit IPoolAddressesProvider.LiquidatorProxyUpdated(address(0), firstProxy);
+
+    vm.prank(alice);
+    provider.setLiquidatorProxy(firstProxy);
+
+    assertEq(provider.getLiquidatorProxy(), firstProxy);
+
+    // update to second proxy
+    vm.expectEmit(address(provider));
+    emit IPoolAddressesProvider.LiquidatorProxyUpdated(firstProxy, secondProxy);
+
+    vm.prank(alice);
+    provider.setLiquidatorProxy(secondProxy);
+
+    assertEq(provider.getLiquidatorProxy(), secondProxy);
   }
 }

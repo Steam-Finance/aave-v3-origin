@@ -64,6 +64,13 @@ interface IPoolAddressesProvider {
   event PoolDataProviderUpdated(address indexed oldAddress, address indexed newAddress);
 
   /**
+   * @dev Emitted when the liquidator proxy is updated.
+   * @param oldAddress The old address of the liquidator proxy contract
+   * @param newAddress The new address of the liquidator proxy contract
+   */
+  event LiquidatorProxyUpdated(address indexed oldAddress, address indexed newAddress);
+
+  /**
    * @dev Emitted when a new proxy is created.
    * @param id The identifier of the proxy
    * @param proxyAddress The address of the created proxy contract
@@ -224,4 +231,16 @@ interface IPoolAddressesProvider {
    * @param newDataProvider The address of the new DataProvider
    */
   function setPoolDataProvider(address newDataProvider) external;
+
+  /**
+   * @notice Returns the address of the liquidator proxy contract.
+   * @return The address of the liquidator proxy contract
+   */
+  function getLiquidatorProxy() external view returns (address);
+
+  /**
+   * @notice Updates the address of the liquidator proxy contract.
+   * @param newLiquidatorProxy The address of the new liquidator proxy contract
+   */
+  function setLiquidatorProxy(address newLiquidatorProxy) external;
 }
