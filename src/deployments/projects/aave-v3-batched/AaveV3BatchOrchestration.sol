@@ -48,6 +48,7 @@ library AaveV3BatchOrchestration {
   ) internal returns (MarketReport memory) {
     DeployAaveV3Variables memory variables;
 
+    // create setup batch
     (variables.setupBatch, variables.initialReport) = _deploySetupContract(
       deployer,
       roles,
@@ -55,17 +56,20 @@ library AaveV3BatchOrchestration {
       deployedContracts
     );
 
+    // deploys wallet balance provider and ui provider
     variables.gettersReport1 = _deployGettersBatch1(
       config.networkBaseTokenPriceInUsdProxyAggregator,
       config.marketReferenceCurrencyPriceInUsdProxyAggregator
     );
 
+    // deploys pool implementations and pool configuration instances
     variables.poolReport = _deployPoolImplementations(
       variables.initialReport.poolAddressesProvider,
       variables.initialReport.interestRateStrategy,
       flags
     );
 
+    // deploys aave oracle, treasury, emission manager and rewards controller
     variables.peripheryReport = _deployPeripherals(
       roles,
       config,
@@ -73,6 +77,7 @@ library AaveV3BatchOrchestration {
       address(variables.setupBatch)
     );
 
+    // price oracle sentinel and default interest rate strategy
     variables.miscReport = _deployMisc(
       flags.l2,
       variables.initialReport.poolAddressesProvider,
@@ -81,6 +86,7 @@ library AaveV3BatchOrchestration {
     );
     variables.miscReport.defaultInterestRateStrategy = variables.initialReport.interestRateStrategy;
 
+    // setup pool address provider and ACL manager
     variables.setupReport = variables.setupBatch.setupAaveV3Market(
       roles,
       config,
@@ -91,12 +97,14 @@ library AaveV3BatchOrchestration {
       variables.miscReport.priceOracleSentinel
     );
 
+    // deploy paraswap adapters
     variables.paraswapReport = _deployParaswapAdapters(
       roles,
       config,
       variables.initialReport.poolAddressesProvider
     );
 
+    // deploy WrappedTokenGatewayV3, L2Encoder, AaveProtocolDataProvider
     variables.gettersReport2 = _deployGettersBatch2(
       variables.setupReport.poolProxy,
       roles.poolAdmin,
@@ -109,12 +117,14 @@ library AaveV3BatchOrchestration {
 
     variables.setupBatch.transferMarketOwnership(roles);
 
+    // deploys ATokenInstance and VariableDebtTokenInstance
     variables.tokensReport = _deployTokens(
       variables.setupReport.poolProxy,
       variables.setupReport.rewardsControllerProxy,
       variables.peripheryReport
     );
 
+    // deploy config engines (helpers)
     variables.configEngineReport = _deployHelpersBatch1(
       variables.setupReport,
       variables.miscReport,
@@ -122,6 +132,7 @@ library AaveV3BatchOrchestration {
       variables.tokensReport
     );
 
+    // deploy stats token v2
     variables.staticATokenReport = _deployHelpersBatch2(
       variables.setupReport.poolProxy,
       variables.setupReport.rewardsControllerProxy,

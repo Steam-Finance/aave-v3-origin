@@ -35,7 +35,7 @@ contract PoolLiquidationCloseFactorTests is TestnetProcedures {
   using ReserveLogic for DataTypes.ReserveData;
 
   address internal whale = makeAddr('whale');
-  address internal liquidator = makeAddr('liquidator');
+  address internal liquidator;
 
   PriceOracleSentinel internal priceOracleSentinel;
   SequencerOracle internal sequencerOracleMock;
@@ -43,6 +43,8 @@ contract PoolLiquidationCloseFactorTests is TestnetProcedures {
 
   function setUp() public {
     initTestEnvironment(false);
+
+    liquidator = liquidatorProxy;
 
     _addBorrowableLiquidity();
     _fundLiquidator();

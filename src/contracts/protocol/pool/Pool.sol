@@ -78,6 +78,17 @@ abstract contract Pool is VersionedInitializable, PoolStorage, IPool, Multicall 
     _;
   }
 
+  /**
+   * @dev Only liquidator proxy contract can call functions marked by this modifier.
+   */
+  modifier onlyLiquidatorProxy() {
+    require(
+      ADDRESSES_PROVIDER.getLiquidatorProxy() == _msgSender(),
+      Errors.CallerNotLiquidatorProxy()
+    );
+    _;
+  }
+
   function _onlyPoolConfigurator() internal view virtual {
     require(
       ADDRESSES_PROVIDER.getPoolConfigurator() == _msgSender(),
@@ -351,7 +362,7 @@ abstract contract Pool is VersionedInitializable, PoolStorage, IPool, Multicall 
     address borrower,
     uint256 debtToCover,
     bool receiveAToken
-  ) public virtual override {
+  ) public virtual override onlyLiquidatorProxy {
     LiquidationLogic.executeLiquidationCall(
       _reserves,
       _reservesList,

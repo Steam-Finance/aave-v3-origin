@@ -27,6 +27,7 @@ contract PoolAddressesProvider is Ownable, IPoolAddressesProvider {
   bytes32 private constant ACL_ADMIN = 'ACL_ADMIN';
   bytes32 private constant PRICE_ORACLE_SENTINEL = 'PRICE_ORACLE_SENTINEL';
   bytes32 private constant DATA_PROVIDER = 'DATA_PROVIDER';
+  bytes32 private constant LIQUIDATOR_PROXY = 'LIQUIDATOR_PROXY';
 
   /**
    * @dev Constructor.
@@ -153,6 +154,18 @@ contract PoolAddressesProvider is Ownable, IPoolAddressesProvider {
     address oldDataProvider = _addresses[DATA_PROVIDER];
     _addresses[DATA_PROVIDER] = newDataProvider;
     emit PoolDataProviderUpdated(oldDataProvider, newDataProvider);
+  }
+
+  /// @inheritdoc IPoolAddressesProvider
+  function getLiquidatorProxy() external view override returns (address) {
+    return getAddress(LIQUIDATOR_PROXY);
+  }
+
+  /// @inheritdoc IPoolAddressesProvider
+  function setLiquidatorProxy(address newLiquidatorProxy) external override onlyOwner {
+    address oldLiquidatorProxy = _addresses[LIQUIDATOR_PROXY];
+    _addresses[LIQUIDATOR_PROXY] = newLiquidatorProxy;
+    emit LiquidatorProxyUpdated(oldLiquidatorProxy, newLiquidatorProxy);
   }
 
   /**

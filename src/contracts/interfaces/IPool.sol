@@ -343,15 +343,17 @@ interface IPool {
   function setUserUseReserveAsCollateral(address asset, bool useAsCollateral) external;
 
   /**
-   * @notice Function to liquidate a non-healthy position collateral-wise, with Health Factor below 1
-   * - The caller (liquidator) covers `debtToCover` amount of debt of the user getting liquidated, and receives
-   *   a proportionally amount of the `collateralAsset` plus a bonus to cover market risk
+   * @notice Function to liquidate a non-healthy position collateral-wise, with Health Factor below 1.
+   * - Can only be called by the Liquidator Proxy contract.
+   * - The caller (liquidator proxy) covers `debtToCover` amount of debt of the user getting liquidated, and
+   *   receives a proportional amount of the `collateralAsset` plus a bonus to cover market risk.
+   *
    * @param collateralAsset The address of the underlying asset used as collateral, to receive as result of the liquidation
    * @param debtAsset The address of the underlying borrowed asset to be repaid with the liquidation
    * @param borrower The address of the borrower getting liquidated
-   * @param debtToCover The debt amount of borrowed `asset` the liquidator wants to cover
-   * @param receiveAToken True if the liquidators wants to receive the collateral aTokens, `false` if he wants
-   * to receive the underlying collateral asset directly
+   * @param debtToCover The debt amount of borrowed `asset` the liquidator proxy wants to cover
+   * @param receiveAToken True if the liquidator proxy wants to receive the collateral aTokens,
+   *   `false` if it wants to receive the underlying collateral asset directly
    */
   function liquidationCall(
     address collateralAsset,

@@ -28,12 +28,14 @@ contract AaveV3PermissionsTest is BatchTestProcedures {
     address emergencyAdmin = makeAddr('EMERGENCY_ADMIN');
     address poolAdmin = makeAddr('POOL_ADMIN');
     address deployer = msg.sender;
+    address liquidatorProxy = makeAddr('LIQUIDATOR_PROXY');
     (
       Roles memory roles,
       MarketConfig memory config,
       DeployFlags memory flags,
       MarketReport memory deployedContracts
     ) = _getMarketInput(marketOwner);
+    config.liquidatorProxy = liquidatorProxy;
 
     roles.emergencyAdmin = emergencyAdmin;
     roles.poolAdmin = poolAdmin;
@@ -167,12 +169,14 @@ contract AaveV3PermissionsTest is BatchTestProcedures {
     address poolAdmin = makeAddr('POOL_ADMIN');
     address treasuryPartner = makeAddr('TREASURY_PARTNER');
     address deployer = msg.sender;
+    address liquidatorProxy = makeAddr('LIQUIDATOR_PROXY');
     (
       Roles memory roles,
       MarketConfig memory config,
       DeployFlags memory flags,
       MarketReport memory deployedContracts
     ) = _getMarketInput(marketOwner);
+    config.liquidatorProxy = liquidatorProxy;
 
     roles.emergencyAdmin = emergencyAdmin;
     roles.poolAdmin = poolAdmin;

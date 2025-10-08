@@ -7,7 +7,8 @@ import {AaveOracle} from '../../../contracts/misc/AaveOracle.sol';
 contract AaveV3OracleProcedure {
   function _deployAaveOracle(
     uint16 oracleDecimals,
-    address poolAddressesProvider
+    address poolAddressesProvider,
+    address baseCurrency
   ) internal returns (address) {
     address[] memory emptyArray;
 
@@ -17,7 +18,7 @@ contract AaveV3OracleProcedure {
         emptyArray,
         emptyArray,
         address(0),
-        address(0),
+        baseCurrency,
         10 ** oracleDecimals
       )
     );
