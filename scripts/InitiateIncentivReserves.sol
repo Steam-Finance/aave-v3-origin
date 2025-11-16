@@ -8,8 +8,8 @@ import {IACLManager} from '../src/contracts/interfaces/IACLManager.sol';
 
 contract InitiateIncentivReservesScript is Script {
   function run() external {
-    address configEngine = 0x6f53b4e9e0666a1cb9B193DCc73b7210240bED36;
-    IACLManager aclManager = IACLManager(0xf59FdbDaB4f5D6ACa0a21AE3e500f725b1F81C7f);
+    address configEngine = 0x753a489DC24699BF3978d918af137D8F519A0F62;
+    IACLManager aclManager = IACLManager(0xF8d87638b47eFA27753094552aa14303c2359ba2);
 
     IEngine.Listing[] memory listings = new IEngine.Listing[](3);
     IEngine.PoolContext memory context = IEngine.PoolContext({
