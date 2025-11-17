@@ -6,21 +6,21 @@ import {IAaveV3ConfigEngine as IEngine} from '../src/contracts/extensions/v3-con
 import {EngineFlags} from '../src/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IACLManager} from '../src/contracts/interfaces/IACLManager.sol';
 
-contract InitiateIncentivReservesScript is Script {
+contract InitiateIncentivTestnetReservesScript is Script {
   function run() external {
-    address configEngine = 0x753a489DC24699BF3978d918af137D8F519A0F62;
-    IACLManager aclManager = IACLManager(0xF8d87638b47eFA27753094552aa14303c2359ba2);
+    address configEngine = 0x2bfa618228C26D95EAbfE246B88b1afbA639AA76;
+    IACLManager aclManager = IACLManager(0xE661e0fE93736B086382383EF8f5455289CB9356);
 
     IEngine.Listing[] memory listings = new IEngine.Listing[](3);
     IEngine.PoolContext memory context = IEngine.PoolContext({
-      networkName: 'Incentiv',
-      networkAbbreviation: 'Incv'
+      networkName: 'Incentiv Testnet',
+      networkAbbreviation: 'IncvT'
     });
 
-    // iETH
+    // iETHt
     listings[0] = IEngine.Listing({
-      asset: 0xf03D78BccF823E9Ff3641C47f60e349E06367B0E,
-      assetSymbol: 'iETH',
+      asset: 0x155c53e433fdEc47996bab941230631A75Fd5c20,
+      assetSymbol: 'iETHt',
       priceFeed: 0xeC7C6AdcC867E1C22713D14797339750E36538E4, // default price feed
       rateStrategyParams: IEngine.InterestRateInputData({
         optimalUsageRatio: 70_00,
@@ -42,10 +42,10 @@ contract InitiateIncentivReservesScript is Script {
       liqProtocolFee: 50_00
     });
 
-    // iBTC
+    // iBTCt
     listings[1] = IEngine.Listing({
-      asset: 0x82c4E1A8bE27651ea0F897B7F86115BDB4415c15,
-      assetSymbol: 'iBTC',
+      asset: 0x3125A9F6eCbFF61326A362fA59131B1Ea9a0479b,
+      assetSymbol: 'iBTCt',
       priceFeed: 0x98DC6E90D4c2f212ed9d124aD2aFBa4833268633,
       rateStrategyParams: IEngine.InterestRateInputData({
         optimalUsageRatio: 55_00,
@@ -67,10 +67,10 @@ contract InitiateIncentivReservesScript is Script {
       liqProtocolFee: 50_00
     });
 
-    // iUSD
+    // iUSDt
     listings[2] = IEngine.Listing({
-      asset: 0xF9b7b39f7fb324f05b87c14AD3d978044e581558,
-      assetSymbol: 'iUSD',
+      asset: 0x9d9D7C8A6523c969c9D1A508764C280F8939813E,
+      assetSymbol: 'iUSDt',
       priceFeed: 0xeC7C6AdcC867E1C22713D14797339750E36538E4, // default price feed (iETH)
       rateStrategyParams: IEngine.InterestRateInputData({
         optimalUsageRatio: 80_00,

@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import './MarketInput.sol';
 
-contract IncentivMarketInput is MarketInput {
+contract IncentivTestnetMarketInput is MarketInput {
   function _getMarketInput(
     address deployer
   )
@@ -24,13 +24,12 @@ contract IncentivMarketInput is MarketInput {
     config.networkBaseTokenPriceInUsdProxyAggregator = 0xeC7C6AdcC867E1C22713D14797339750E36538E4;
     config
       .marketReferenceCurrencyPriceInUsdProxyAggregator = 0xeC7C6AdcC867E1C22713D14797339750E36538E4;
-    config.marketId = 'Aave V3 Incentiv Market';
+    config.marketId = 'Aave V3 Incentiv Testnet Market';
     config.oracleDecimals = 8;
     config.providerId = 1;
     config.flashLoanPremium = 10; // 0.1%
     config.treasury = deployer;
-    config.baseCurrency = 0xF9b7b39f7fb324f05b87c14AD3d978044e581558; // iUSD
-    config.wrappedNativeToken = 0xB0f0A14A50F14dc9e6476d61C00cF0375Dd4EB04; // WCENT
+    config.baseCurrency = 0x9d9D7C8A6523c969c9D1A508764C280F8939813E; // iUSD
 
     return (roles, config, flags, deployedContracts);
   }
